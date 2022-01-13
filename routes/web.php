@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BooksController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::get('login', [LoginController::class, 'login'])->name('login');
+Route::post('login', [LoginController::class, 'store'])->name('store');
+
+Route::get('create', [LoginController::class, 'register'])->name('register');
+Route::post('create', [LoginController::class, 'create'])->name('create');
+
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::middleware('auth')->group(function(){
+    Route::get('/', [BooksController::class, 'list'])->name('home');
+    Route::get('add-book', [BooksController::class, 'create'])->name('add-book');
 });
