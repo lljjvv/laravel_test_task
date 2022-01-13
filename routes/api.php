@@ -20,6 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::middleware('logger.responce')->group(function () {
+Route::middleware(['auth.basic.once', 'logger.response'])->group(function () {
     Route::apiResource('/books', BooksController::class);
 });
