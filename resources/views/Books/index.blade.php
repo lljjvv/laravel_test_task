@@ -1,7 +1,6 @@
 books
 
 <pre>
-
 </pre>
 
 <div>

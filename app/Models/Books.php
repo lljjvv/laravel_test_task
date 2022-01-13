@@ -20,4 +20,9 @@ class Books extends Model
         'release_date',
         'added_by_user_id',
     ];
+
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'added_by_user_id');
+    }
 }

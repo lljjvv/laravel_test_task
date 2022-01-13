@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accounts;
 use App\Http\Resources\BooksResource;
 use App\Models\Books;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +20,9 @@ class BooksController extends Controller
      */
     public function list()
     {
-        $books = BooksResource::collection(Books::all());
+        // dd(Accounts::find(Auth::user()->account_id)->carOwner()->get());
+
+        $books = BooksResource::collection(Accounts::find(Auth::user()->account_id)->carOwner()->get());
         return view('Books.index', compact('books'));
     }
 
@@ -118,6 +122,8 @@ class BooksController extends Controller
      */
     public function destroy(Books $book)
     {
+
+        $this->authorize('delete', $book);
         $book->delete();
         return response(null, 204);
     }
