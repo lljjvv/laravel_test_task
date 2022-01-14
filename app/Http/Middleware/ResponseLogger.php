@@ -26,9 +26,7 @@ class ResponseLogger
             'content' => $response->getContent()
         ];
 
-        // dd($response);
         Log::info(json_encode($log));
-        // dd($log);
 
         return $response;
     }
